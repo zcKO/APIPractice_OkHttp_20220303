@@ -13,5 +13,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        setupEvents()
+        setValues()
     }
+
+    fun setupEvents() {
+
+        binding.btnLogin.setOnClickListener {
+
+            val inputId = binding.edtId.text.toString()
+            val inputPw = binding.edtPassword.text.toString()
+
+            // API 서버에 아이디 / 비번을 보내서 실제로 회원인지 검사 => 로그인 시도.
+
+        }
+
+    }
+
+    fun setValues() {
+
+    }
+
 }
