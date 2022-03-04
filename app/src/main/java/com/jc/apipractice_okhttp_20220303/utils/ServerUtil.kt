@@ -67,6 +67,15 @@ class ServerUtil {
 
                     Log.d("서버 테스트", jsonObj.toString())
 
+                    // 연습 : 로그인 성공 / 실패 에 따른 로그 출력
+                    // code 이름표의 Int 를 추출, 그 값을 if 로 물어본다.
+                    val code = jsonObj.getInt("code")
+
+                    if (code == 200) {
+                        Log.d("로그인 시도", "성공!")
+                    } else {
+                        Log.d("로그인 시도", "실패.")
+                    }
 
                 }
             })
