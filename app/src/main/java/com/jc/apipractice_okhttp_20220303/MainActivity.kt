@@ -1,5 +1,6 @@
 package com.jc.apipractice_okhttp_20220303
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -20,6 +21,15 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnSignUp.setOnClickListener {
+
+            // 단순 화면 이동.
+            val myIntent = Intent(mContext, SignUpActivity::class.java)
+            startActivity(myIntent)
+
+        }
+
 
         binding.btnLogin.setOnClickListener {
 
