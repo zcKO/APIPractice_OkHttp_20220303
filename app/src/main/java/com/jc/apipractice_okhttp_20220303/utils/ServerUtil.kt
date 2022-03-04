@@ -86,7 +86,12 @@ class ServerUtil {
         }
 
         // 회원가입 기능 호출 함수
-        fun putRequestSignUp(id: String, pw: String, nickname: String, handler: JsonResponseHandler?) {
+        fun putRequestSignUp(
+            id: String,
+            pw: String,
+            nickname: String,
+            handler: JsonResponseHandler?
+        ) {
 
             val urlString = "${BASE_URL}/user"
 
@@ -101,9 +106,25 @@ class ServerUtil {
                 .put(formData)
                 .build()
 
+            val client = OkHttpClient()
 
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    call.cancel()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+                    val jsonObject = JSONObject(bodyString)
+                    Log.d("서버 응답", jsonObject.toString())
+                    handler?.onResponse(jsonObject)
+
+                }
+            })
 
         }
+
 
     }
 
