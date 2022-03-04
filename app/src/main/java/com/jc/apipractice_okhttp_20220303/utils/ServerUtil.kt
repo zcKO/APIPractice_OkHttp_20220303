@@ -2,6 +2,7 @@ package com.jc.apipractice_okhttp_20220303.utils
 
 import android.util.Log
 import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
 
 class ServerUtil {
@@ -58,7 +59,13 @@ class ServerUtil {
                     // 다음 줄에서 다시 .string() 을 사용하면 에러
                     val bodyString = response.body!!.string()
 
-                    Log.d("서버 테스트", bodyString)
+                    // 응답의 분문을 String 으로, 변환하면, JSON Encoding 이 적용된 상태이다. (한글 깨짐)
+                    // JSONObject 객체로 응답 본문 String 을 변환해주면, 한글이 복구 된다.
+                    //   => UI 에서도 JSONObject 를 이용해서, 데이터 추출 / 실제 활용.
+                    val jsonObj = JSONObject(bodyString)
+
+
+                    Log.d("서버 테스트", jsonObj.toString())
 
 
                 }
