@@ -75,6 +75,9 @@ class ServerUtil {
                         Log.d("로그인 시도", "성공!")
                     } else {
                         Log.d("로그인 시도", "실패.")
+
+                        val message = jsonObj.getString("message")
+                        Log.d("실패 사유", message)
                     }
 
                 }
