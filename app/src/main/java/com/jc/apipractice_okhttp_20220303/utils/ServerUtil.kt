@@ -1,7 +1,7 @@
 package com.jc.apipractice_okhttp_20220303.utils
 
-import okhttp3.FormBody
-import okhttp3.Request
+import okhttp3.*
+import java.io.IOException
 
 class ServerUtil {
 
@@ -33,7 +33,23 @@ class ServerUtil {
                 .post(formData)
                 .build()
 
+            // 종합한 Request 도 실제 호출을 해 주어야 API 호출이 실행된다. (startActivity 와 같은 동작이라고 생각하면 된다.)
+            // 실제 호출 : 앱이 클라이언트로서 동작 > OkHttpClient 클래스
+            val client = OkHttpClient()
 
+            // request 의 정보를 서버로 보낸다.
+            // OkHttpClient 객체를 이용 -> 서버에 로그인 기능 실제 호출
+            // 호출을 했으면, 서버가 수행한 결괄르 받아서 처리
+            //   => 서버에 다녀와서 할 일을 등록 : enqueue(Callback)
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                }
+            })
 
         }
 
