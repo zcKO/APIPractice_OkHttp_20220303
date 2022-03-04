@@ -1,5 +1,6 @@
 package com.jc.apipractice_okhttp_20220303.utils
 
+import android.util.Log
 import okhttp3.*
 import java.io.IOException
 
@@ -43,10 +44,22 @@ class ServerUtil {
             //   => 서버에 다녀와서 할 일을 등록 : enqueue(Callback)
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-
+                    // 실패 : 서버 연결 자체를 실패. 응답이 오지 않는 경우.
+                    // ex. 인터넷 끊김, 서버 접속 불가 등등 물리적 연결 실패
+                    // ex. 비번이 틀려서 로그인 실패 : 서버 연결 성공, 응답도 돌아오는 상황 -> 그 내용만 실패. (물리적 실패가 아니다.)
+                    // 그렇기에 여기서 단순 로그인과 비밀번호 실패는 다루지 않는다.
                 }
 
                 override fun onResponse(call: Call, response: Response) {
+
+                    // 어떤 내용이던, 응답 자체는 잘 돌아온 경우. (그 내용이 성공 / 실패 일 수 있다.)
+                    // 응답 : response 변수 > 응답의 본문 (body) 만 보자
+                    // toString() 이 아니다. string() 은 한번만 사용 즉, 1회용이며, 변수에 담아두고 이용
+                    // 다음 줄에서 다시 .string() 을 사용하면 에러
+                    val bodyString = response.body!!.string()
+
+                    Log.d("서버 테스트", bodyString)
+
 
                 }
             })
