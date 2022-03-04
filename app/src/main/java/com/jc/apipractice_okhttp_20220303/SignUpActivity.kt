@@ -1,6 +1,7 @@
 package com.jc.apipractice_okhttp_20220303
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.jc.apipractice_okhttp_20220303.databinding.ActivitySignUpBinding
 import com.jc.apipractice_okhttp_20220303.utils.ServerUtil
@@ -33,6 +34,20 @@ class SignUpActivity : BaseActivity() {
                 inputNickname,
                 object : ServerUtil.JsonResponseHandler {
                     override fun onResponse(jsonObject: JSONObject) {
+
+                        // 회원가입 (성공 / 실패) 분기
+                        val code = jsonObject.getInt("code")
+
+                        if (code == 200) {
+
+
+
+                        } else {
+                            val message = jsonObject.getString("message")
+                            runOnUiThread {
+                                Toast.makeText(mContext, "실패 사유 : ${message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
 
                     }
                 }
