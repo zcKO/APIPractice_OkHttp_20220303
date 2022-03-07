@@ -11,6 +11,7 @@ class ContextUtil {
 
         // 저장할 데이터의 항목명도 변수로 만들어두자.
         private val TOKEN = "TOKEN"
+        private val AUTO_LOGIN = "AUTO_LOGIN"
 
         // 데이터를 저장하는 함수 (setter) / 조회하는 함수 (getter) 별개로 작성해야한다.
         // TOKEN 항목에 저장 => token 항목 조회시 데이터 인식 x 대소문자까지 동일해야한다.
@@ -28,6 +29,16 @@ class ContextUtil {
             val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
             return pref.getString(TOKEN, "")!! // null 로도 보낼 수 있기에 String? 타입이다.
 
+        }
+
+        fun setAutoLogin(context: Context, isAuto: Boolean) {
+            val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+            pref.edit().putBoolean(AUTO_LOGIN, isAuto).apply()
+        }
+
+        fun getAutoLogin(context: Context) : Boolean {
+            val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+            return pref.getBoolean(AUTO_LOGIN, true)
         }
 
     }
