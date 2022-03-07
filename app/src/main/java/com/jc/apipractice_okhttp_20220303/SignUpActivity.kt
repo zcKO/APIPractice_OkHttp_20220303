@@ -28,7 +28,28 @@ class SignUpActivity : BaseActivity() {
 
             // 서버의 중복 확인 가능 (/user_check - GET) API 활용 => ServerUtil 에 함수 추가하여, 가져다 사용.
             // 그 응답 code 값에 따라 다른 문구 배치.
-            ServerUtil.getRequestDuplicatedCheck("EMAIL", inputEmail, null)
+            ServerUtil.getRequestDuplicatedCheck("EMAIL", inputEmail, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(jsonObject: JSONObject) {
+
+                    // code 값에 따라 이메일 사용 가능 여부
+                    val code = jsonObject.getInt("code")
+
+                    runOnUiThread {
+
+                        when (code) {
+                            200 ->{
+                                binding.txtEmailCheckResult.text = "사용해도 좋은 이메일입니다."
+                            }
+                            else -> {
+                                binding.txtEmailCheckResult.text = "다른 이메일로 다시 검사해주세요."
+                            }
+                        }
+
+                    }
+
+                }
+
+            })
         }
 
         binding.btnSignUp.setOnClickListener {
