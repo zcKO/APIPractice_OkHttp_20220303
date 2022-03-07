@@ -1,7 +1,6 @@
 package com.jc.apipractice_okhttp_20220303.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 
 class ContextUtil {
 
@@ -11,7 +10,7 @@ class ContextUtil {
         private val prefName = "OkHttpPracticePref"
 
         // 저장할 데이터의 항목명도 변수로 만들어두자.
-        val TOKEN = "TOKEN"
+        private val TOKEN = "TOKEN"
 
         // 데이터를 저장하는 함수 (setter) / 조회하는 함수 (getter) 별개로 작성해야한다.
         // TOKEN 항목에 저장 => token 항목 조회시 데이터 인식 x 대소문자까지 동일해야한다.
