@@ -21,6 +21,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        // 화면의 TextView 에 닉네임을 보여주기 위한 작업
+
     }
 
 }
