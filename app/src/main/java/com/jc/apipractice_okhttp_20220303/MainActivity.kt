@@ -33,7 +33,11 @@ class MainActivity : BaseActivity() {
     override fun setValues() {
 
         // 메인 화면 정보 가져오기 => API 호출 / 응답 처리
+        // 코드 상으로는 먼저 실행시키지만, 비동기로 움직이기에, 완료는 어댑터 연결보다 늦을 수 도 있다.
+        //  => 목록에 토론 주제 추가 : 어댑터 연결 이후 추가
+        // ListView Adapter 의 내용물들에 변경 : notifyDataSetChanged 실행
         getTopicListFromServer()
+
 
         mAdapter = TopicAdapter(mContext, R.layout.topic_list_item, mTopicList)
         binding.topicListview.adapter = mAdapter
@@ -69,6 +73,11 @@ class MainActivity : BaseActivity() {
                     // 완성된 TopicData 객체를 목록에 추가
                     mTopicList.add(topicData)
 
+                }
+
+                // ListView 의 내용물을 새로 고침 => UI 에 내용물 변경 행위
+                runOnUiThread {
+                    mAdapter.notifyDataSetChanged()
                 }
 
             }
