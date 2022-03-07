@@ -27,6 +27,11 @@ class LoginActivity : BaseActivity() {
         // 체크박스의 체크 여부가 변경되면 (이벤트 처리) > ContextUtil 이용, 체크 값 저장.
         binding.autoLoginCheckBox.setOnCheckedChangeListener { compoundButton, isChecked ->
             Log.d("체크 값 변경 ", "${isChecked} 로 변경됨")
+
+            // 연습 문제, ContextUtil 을 이용해서, true 로 변경되면 자동로그인 값도 true 로 저장.
+            // false 로 되면, 자동 로그인 값도 false 로 저장
+            ContextUtil.setAutoLogin(mContext, isChecked)
+
         }
 
         binding.btnSignUp.setOnClickListener {
