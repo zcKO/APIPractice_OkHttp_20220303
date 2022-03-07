@@ -13,6 +13,7 @@ class SignUpActivity : BaseActivity() {
 
     lateinit var binding: ActivitySignUpBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
@@ -100,7 +101,7 @@ class SignUpActivity : BaseActivity() {
 
             // 만약 이메일 / 닉네임 중복 감사를 통과하지 못한 상태라면,
             // 토스트로 "이메일 중복검사를 통과해야 합니다." 등의 문구만 출력
-            // hint_ 진행할 상황이 아니라면, return 처리 하면 함수 종료
+            // hint) 진행할 상황이 아니라면, return 처리하면 함수 종료.
 
 
             val inputEmail = binding.edtEmail.text.toString()
