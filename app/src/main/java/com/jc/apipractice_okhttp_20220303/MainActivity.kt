@@ -52,6 +52,17 @@ class MainActivity : BaseActivity() {
                     // JSON 파싱의 { } => (JSONArray 에게서) JSONObject 로 추출
                     val topicObj = topicsArr.getJSONObject(i)
                     Log.d("받아낸 주제", topicObj.toString())
+
+                    // TopicData 변수 생성 => 멤버 변수에, topicObj 가 들고 있는 값들을 대입
+                    val topicData = TopicData()
+                    topicData.id = topicObj.getInt("id")
+                    topicData.title = topicObj.getString("title")
+                    topicData.imageURL = topicObj.getString("img_url")
+                    topicData.replyCount = topicObj.getInt("reply_count")
+
+                    // 완성된 TopicData 객체를 목록에 추가
+                    mTopicList.add(topicData)
+
                 }
 
             }
