@@ -158,7 +158,7 @@ class ServerUtil {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val bodyString = response.body!!.toString()
+                    val bodyString = response.body!!.string()
                     val jsonObj = JSONObject(bodyString)
                     Log.d("서버 응답", jsonObj.toString())
                     handler?.onResponse(jsonObj)
