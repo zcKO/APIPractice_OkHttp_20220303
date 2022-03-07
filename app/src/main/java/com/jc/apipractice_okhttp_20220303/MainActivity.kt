@@ -3,6 +3,7 @@ package com.jc.apipractice_okhttp_20220303
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.jc.apipractice_okhttp_20220303.adapters.TopicAdapter
 import com.jc.apipractice_okhttp_20220303.data.TopicData
 import com.jc.apipractice_okhttp_20220303.databinding.ActivityMainBinding
 import com.jc.apipractice_okhttp_20220303.utils.ServerUtil
@@ -14,6 +15,8 @@ class MainActivity : BaseActivity() {
 
     // 실제로 서버가 내려주는 주제 목록을 담을 그릇
     val mTopicList = ArrayList<TopicData>()
+
+    lateinit var mAdapter: TopicAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,9 @@ class MainActivity : BaseActivity() {
 
         // 메인 화면 정보 가져오기 => API 호출 / 응답 처리
         getTopicListFromServer()
+
+        mAdapter = TopicAdapter(mContext, R.layout.topic_list_item, mTopicList)
+        binding.topicListview.adapter = mAdapter
 
     }
 
