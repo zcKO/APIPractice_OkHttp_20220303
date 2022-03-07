@@ -1,7 +1,9 @@
 package com.jc.apipractice_okhttp_20220303
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.jc.apipractice_okhttp_20220303.databinding.ActivitySignUpBinding
 import com.jc.apipractice_okhttp_20220303.utils.ServerUtil
@@ -21,6 +23,11 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.edtEmail.addTextChangedListener {
+            Log.d("입력내용", it.toString())
+        }
+
 
         binding.btnEmailCheck.setOnClickListener {
             // 입력 이메일 값 추출
