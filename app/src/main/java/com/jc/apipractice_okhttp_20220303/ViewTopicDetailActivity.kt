@@ -5,6 +5,8 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.jc.apipractice_okhttp_20220303.data.TopicData
 import com.jc.apipractice_okhttp_20220303.databinding.ActivityViewTopicDetailBinding
+import com.jc.apipractice_okhttp_20220303.utils.ServerUtil
+import org.json.JSONObject
 
 class ViewTopicDetailActivity : BaseActivity() {
 
@@ -34,6 +36,18 @@ class ViewTopicDetailActivity : BaseActivity() {
             .load(mTopicData.imageURL)
             .into(binding.imgTopicBackground)
 
+    }
+
+    fun getTopicDetailFromServer() {
+        // 서버 주소/topic/{1} : {} -> Path Segment
+        ServerUtil.getRequestTopicDetail(mContext, mTopicData.id, object : ServerUtil.JsonResponseHandler {
+            override fun onResponse(jsonObject: JSONObject) {
+
+
+
+            }
+
+        })
     }
 
 }
