@@ -23,8 +23,23 @@ class TopicData : Serializable {
                 replyCount = jsonObj.getInt("reply_count")
             }
 
-            // 완성된 TopicData 리턴
+            // sides 라는 JSONArray 가 들어 있다.
+            //   => topicData 의 하위 정보로, 선택진영 목록으로 저장.
+            //   => JSONArray > ArrayList
 
+            val sidesArr = jsonObj.getJSONArray("sides")
+
+            for (i in 0 until sidesArr.length()) {
+
+                // 선택 진영 정보를 들고 있는 JSONObject 추출
+                val sideObj = sidesArr.getJSONObject(i)
+
+                // sideObj 도, SideData 로 (선택 진영)
+
+            }
+
+
+            // 완성된 TopicData 리턴
             return topicData
 
         }
