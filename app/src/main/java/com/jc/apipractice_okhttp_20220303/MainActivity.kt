@@ -1,11 +1,15 @@
 package com.jc.apipractice_okhttp_20220303
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.jc.apipractice_okhttp_20220303.adapters.TopicAdapter
 import com.jc.apipractice_okhttp_20220303.data.TopicData
 import com.jc.apipractice_okhttp_20220303.databinding.ActivityMainBinding
+import com.jc.apipractice_okhttp_20220303.utils.ContextUtil
 import com.jc.apipractice_okhttp_20220303.utils.ServerUtil
 import org.json.JSONObject
 
@@ -28,6 +32,29 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnLogout.setOnClickListener {
+
+            // 경고창 > 확인시 로그아웃
+            val alert = AlertDialog.Builder(mContext)
+                .setTitle("로그아웃")
+                .setMessage("정말 로그아웃 하시겠습니까?")
+                .setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+
+                    // 로그인 : 토큰 값을 받아서 기기에 저장하는 행위
+                    // 로그아웃 : 토큰 값을 삭제 처리하는 행위 (폰에서 삭제 > 서버에서 받아올 필요가 없다.)
+                    ContextUtil.setToken(mContext, "")
+
+                    val myIntent = Intent(mContext, LoginActivity::class.java)
+                    startActivity(myIntent)
+                    finish()
+
+                })
+                .setNegativeButton("취소", null)
+                .show()
+
+        }
+
     }
 
     override fun setValues() {
