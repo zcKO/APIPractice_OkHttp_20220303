@@ -13,6 +13,9 @@ class TopicData : Serializable {
     // 하나의 토론주제 : 여러 개의 (목록) 선택 진영이 필요하다.
     val sideList = ArrayList<SideData>()
 
+    // 내가 투표해둔 진영
+    var mySelectedSide: SideData? = null
+
     companion object {
         // 토론 주제 정보를 담고 있는 JSONObject 가 들어오면 > TopicData 형태로 변환해주는 함수. => static 메서드
         fun getTopicDataFromJson(jsonObj: JSONObject): TopicData {
@@ -44,6 +47,16 @@ class TopicData : Serializable {
                 topicData.sideList.add(sideData)
             }
 
+            // 투표해둔 진영이 있다면? 선택진영 데이터도 파싱.
+            // 진영이 없다면 => mySide 항목은, null 일 경우도 있다.
+            if (!jsonObj.isNull("my_side")) {
+
+                // null 이 아닐 때만 파싱
+                    val mySideObj = jsonObj.getJSONObject("my_side")
+                // 선택 진영 JSON => mySelectedSide 변수 (SideData)
+                topicData.mySelectedSide = SideData.getSideDataFromJson(mySideObj)
+
+            }
 
             // 완성된 TopicData 리턴
             return topicData
