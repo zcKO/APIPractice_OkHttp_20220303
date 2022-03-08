@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.jc.apipractice_okhttp_20220303.data.ReplyData
 import com.jc.apipractice_okhttp_20220303.data.TopicData
 import com.jc.apipractice_okhttp_20220303.databinding.ActivityViewTopicDetailBinding
 import com.jc.apipractice_okhttp_20220303.utils.ServerUtil
@@ -15,6 +16,8 @@ class ViewTopicDetailActivity : BaseActivity() {
 
     // 보여주게 될 토론 주제 데이터 > 이벤트 처리, 데이터 표현 등 여러 함수에서 사용
     lateinit var mTopicData: TopicData
+
+    val mReplyList = ArrayList<ReplyData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,6 +143,18 @@ class ViewTopicDetailActivity : BaseActivity() {
                 runOnUiThread {
                     setTopicDataToUi()
                 }
+
+                // topicObj 내부에는 replies 라는 댓글 목록 JSONArray 도 들어있다.
+                // mReplyList 에 넣어준다.
+                val repliesArr = topicObj.getJSONArray("replies")
+
+                for (i in 0 until repliesArr.length()) {
+                    val replyObj = repliesArr.getJSONObject(i)
+
+                    mReplyList.add(ReplyData.getReplyDataFromJson(replyObj))
+                }
+
+                // 경우에 따라 서버의 동작이므로, 어댑터 세팅보다 늦게 끝날 수 있다. (notifyDataSetChanged)
 
             }
 
