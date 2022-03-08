@@ -38,7 +38,7 @@ class TopicData : Serializable {
                 val sideObj = sidesArr.getJSONObject(i)
 
                 // sideObj 도, SideData 로 (선택 진영)
-                val sideData = SideData.getSideDataFromJson(jsonObj)
+                val sideData = SideData.getSideDataFromJson(sideObj)
 
                 // topicData 변수의 하위 목록으로 등록
                 topicData.sideList.add(sideData)
