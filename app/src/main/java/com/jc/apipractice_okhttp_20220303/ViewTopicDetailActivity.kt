@@ -2,6 +2,7 @@ package com.jc.apipractice_okhttp_20220303
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.jc.apipractice_okhttp_20220303.data.TopicData
 import com.jc.apipractice_okhttp_20220303.databinding.ActivityViewTopicDetailBinding
 
@@ -27,6 +28,11 @@ class ViewTopicDetailActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        binding.txtTitle.text = mTopicData.title
+        Glide.with(mContext)
+            .load(mTopicData.imageURL)
+            .into(binding.imgTopicBackground)
 
     }
 
