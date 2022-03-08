@@ -209,7 +209,6 @@ class ServerUtil {
 
         }
 
-
         fun getRequestMainInfo(context: Context, handler: JsonResponseHandler?) {
 
             val urlBuilder = "${BASE_URL}/v2/main_info"
@@ -280,6 +279,39 @@ class ServerUtil {
 
                 }
 
+            })
+
+        }
+
+        fun postRequestVote(context: Context, sideId: Int, handler: JsonResponseHandler?) {
+
+            val urlString = "${BASE_URL}/topic_vote"
+
+            val formData = FormBody.Builder()
+                .add("side_id", sideId.toString())
+                .build()
+
+            val request = Request.Builder()
+                .url(urlString)
+                .post(formData)
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    call.cancel()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버 테스트", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+
+                }
             })
 
         }
