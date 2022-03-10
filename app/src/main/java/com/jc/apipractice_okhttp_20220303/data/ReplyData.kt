@@ -20,6 +20,22 @@ class ReplyData(
     // 보조 생성자 추가 연습 : 파라미터 없는 생성자.
     constructor() : this(0, "내용 없음")
 
+    // 각각의 댓글이 자신의 작성 일시를, 핸드폰 시간대에 맞게 보정 + 가공된 문구로 내보내기
+    fun getFormattedCreatedAt(): String {
+
+        // 가공 해줄 양식 지정
+        val sdf = SimpleDateFormat("M월 d일 a h시 m분")
+
+        // 시차 보정에 사용할 Calendar 변수 (원래 있는 createAt 변수는 놔두고, 별도로 추가)
+        // 내 폰 시간대에 맞게 보정 예정
+        val localCal = Calendar.getInstance()
+        // 작성 일시의 일시 값을 그대로 복사 (원래 값 : 현재 일시)
+        localCal.time = this.createdAt.time
+
+        return sdf.format(localCal.time)
+
+    }
+
     companion object {
 
         fun getReplyDataFromJson(jsonObj: JSONObject): ReplyData {

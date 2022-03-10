@@ -46,7 +46,7 @@ class ReplyAdapter(
 
         // 실제 활용
         // 임시 2 - "2022-03-10" 형태로 표현 => SimpleDateFormat 활용
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
+//        val sdf = SimpleDateFormat("yyyy-MM-dd")
 
         // SimpleDateFormat (Date 객체) => 지정해둔 양식의 String 으로 가공.
         // createAt 은 Calendar / format 의 파라미터 : Data => Calendar 의 내용물인 time 변수가 Date 타입
@@ -57,13 +57,12 @@ class ReplyAdapter(
         // 양식 2) 220305
         // 양식 3) 3월 5일 오전 2시 5분
         // 양식 4) 21년 3/5 (토) - 18:05
-        val sdf1 = SimpleDateFormat("yyyy년 M월 d일")
-        val sdf2 = SimpleDateFormat("yyyyMMdd")
-        val sdf3 = SimpleDateFormat("M월 d일 a h시 m분")
-        val sdf4 = SimpleDateFormat("yy년 m/d (E) - HH:mm")
+//        val sdf1 = SimpleDateFormat("yyyy년 M월 d일")
+//        val sdf2 = SimpleDateFormat("yyyyMMdd")
+//        val sdf3 = SimpleDateFormat("M월 d일 a h시 m분")
+//        val sdf4 = SimpleDateFormat("yy년 m/d (E) - HH:mm")
 
-
-        txtCreatedAt.text = sdf4.format(data.createdAt.time)
+        txtCreatedAt.text = data.getFormattedCreatedAt()
         return row
 
     }
