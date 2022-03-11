@@ -1,5 +1,6 @@
 package com.jc.apipractice_okhttp_20220303
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -13,10 +14,12 @@ abstract class BaseActivity : AppCompatActivity() {
     // 인터페이스가 엮이기 시작한다면 this@ 어느 화면인지 추가로 고려해야 한다.
 
     // 미리 mContext 의 변수에, 화면의 this 를 담아두고 모든 Activity 에 상속으로 물려준다. (좋은 코드는 아니다, 임시 방편)
-    val mContext = this
+    lateinit var mContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mContext = this     // 화면이 만들어 질 때, this 대입
 
         supportActionBar?.let {
             // supportActionBar 변수가 null 이 아닐 때만 실행할 코드
