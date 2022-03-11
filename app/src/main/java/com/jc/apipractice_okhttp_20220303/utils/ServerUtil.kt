@@ -139,7 +139,10 @@ class ServerUtil {
             val urlBuilder = "${BASE_URL}/user_check"
                 .toHttpUrlOrNull()!!
                 .newBuilder()
-                .addEncodedQueryParameter("type", type)         // 크롬이나 브라우저에 들어갈 쿼리이기에 Encoded 를 안붙이면 한글이 깨진다.
+                .addEncodedQueryParameter(
+                    "type",
+                    type
+                )         // 크롬이나 브라우저에 들어갈 쿼리이기에 Encoded 를 안붙이면 한글이 깨진다.
                 .addEncodedQueryParameter("value", inputValue)  // encodedName 은 서버에 요청하는 파라미터
                 .build()
 
@@ -153,7 +156,7 @@ class ServerUtil {
 
             // 3) Request 완성 > 서버에 호출, 응답을 화면에 넘긴다.
             val client = OkHttpClient()
-            client.newCall(request).enqueue(object: Callback {
+            client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     call.cancel()
                 }
@@ -187,12 +190,15 @@ class ServerUtil {
             val request = Request.Builder()
                 .url(urlString)
                 .get()
-                .header("X-Http-Token", ContextUtil.getToken(context))       // ContextUtil 을 통해, 저장된 토큰을 받아서 첨부
+                .header(
+                    "X-Http-Token",
+                    ContextUtil.getToken(context)
+                )       // ContextUtil 을 통해, 저장된 토큰을 받아서 첨부
                 .build()
 
             val client = OkHttpClient()
 
-            client.newCall(request).enqueue(object: Callback {
+            client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     call.cancel()
                 }
@@ -221,12 +227,15 @@ class ServerUtil {
             val request = Request.Builder()
                 .url(urlString)
                 .get()
-                .header("X-Http-Token", ContextUtil.getToken(context))       // ContextUtil 을 통해, 저장된 토큰을 받아서 첨부
+                .header(
+                    "X-Http-Token",
+                    ContextUtil.getToken(context)
+                )       // ContextUtil 을 통해, 저장된 토큰을 받아서 첨부
                 .build()
 
             val client = OkHttpClient()
 
-            client.newCall(request).enqueue(object: Callback {
+            client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     call.cancel()
                 }
@@ -243,7 +252,7 @@ class ServerUtil {
 
         }
 
-        fun getRequestTopicDetail(context: Context,  topicId: Int, handler: JsonResponseHandler?) {
+        fun getRequestTopicDetail(context: Context, topicId: Int, handler: JsonResponseHandler?) {
 
 //            val urlBuilder = "${BASE_URL}/topic"
 //                .toHttpUrlOrNull()!!
@@ -262,12 +271,15 @@ class ServerUtil {
             val request = Request.Builder()
                 .url(urlString)
                 .get()
-                .header("X-Http-Token", ContextUtil.getToken(context))       // ContextUtil 을 통해, 저장된 토큰을 받아서 첨부
+                .header(
+                    "X-Http-Token",
+                    ContextUtil.getToken(context)
+                )       // ContextUtil 을 통해, 저장된 토큰을 받아서 첨부
                 .build()
 
             val client = OkHttpClient()
 
-            client.newCall(request).enqueue(object: Callback {
+            client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     call.cancel()
                 }
@@ -290,6 +302,45 @@ class ServerUtil {
 
             val formData = FormBody.Builder()
                 .add("side_id", sideId.toString())
+                .build()
+
+            val request = Request.Builder()
+                .url(urlString)
+                .post(formData)
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    call.cancel()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버 테스트", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+
+                }
+            })
+
+        }
+
+        fun postRequestTopicReply(
+            context: Context,
+            topicId: Int,
+            content: String,
+            handler: JsonResponseHandler?
+        ) {
+
+            val urlString = "${BASE_URL}/topic_reply"
+
+            val formData = FormBody.Builder()
+                .add("topic_id", topicId.toString())
+                .add("content", content)
                 .build()
 
             val request = Request.Builder()
