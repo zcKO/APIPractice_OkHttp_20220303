@@ -141,8 +141,8 @@ class ReplyAdapter(
             txtLikeCount.setTextColor(ContextCompat.getColor(mContext, R.color.naver_red))
             txtLikeCount.setBackgroundResource(R.drawable.naver_red_border)
         } else {
-            txtHateCount.setTextColor(ContextCompat.getColor(mContext, R.color.deep_dark_gray))
-            txtHateCount.setBackgroundResource(R.drawable.dark_gray_border_box)
+            txtLikeCount.setTextColor(ContextCompat.getColor(mContext, R.color.deep_dark_gray))
+            txtLikeCount.setBackgroundResource(R.drawable.dark_gray_border_box)
 
         }
 
