@@ -2,6 +2,7 @@ package com.jc.apipractice_okhttp_20220303
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -15,6 +16,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     // 미리 mContext 의 변수에, 화면의 this 를 담아두고 모든 Activity 에 상속으로 물려준다. (좋은 코드는 아니다, 임시 방편)
     lateinit var mContext: Context
+
+    // 액션바에서 UI 변수를 멤버변수로 만들어야 상속으로 물려주는 것이 가능.
+    //  => 변수에 대입 : 커스텀 액션바 세팅 뒤에 진행해야한다.
+    lateinit var btnBack: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,14 @@ abstract class BaseActivity : AppCompatActivity() {
         val toolbar = defaultActionBar.customView.parent as Toolbar
         // 절대 값
         toolbar.setContentInsetsAbsolute(0, 0)
+
+        // xml 에 그려둔 UI 가져오기
+        btnBack = defaultActionBar.customView.findViewById(R.id.btnBack)
+
+        // 누르면 화면 종료 : 모든 화면 공통
+        btnBack.setOnClickListener {
+            finish()
+        }
 
     }
 
