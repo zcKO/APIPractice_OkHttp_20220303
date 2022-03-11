@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.jc.apipractice_okhttp_20220303.R
 import com.jc.apipractice_okhttp_20220303.data.ReplyData
+import com.jc.apipractice_okhttp_20220303.utils.ServerUtil
+import org.json.JSONObject
 
 class ReplyAdapter(
     val mContext: Context,
@@ -66,6 +68,25 @@ class ReplyAdapter(
         txtReReplyCount.text = "답글 ${data.reReplyCount}"
         txtLikeCount.text = "좋아요 ${data.likeCount}"
         txtHateCount.text = "싫어요 ${data.hateCount}"
+
+        txtLikeCount.setOnClickListener {
+
+            // 서버에 이 댓글에 좋아요 알림.
+            ServerUtil.postRequestReplyLikeOrHate(
+                mContext,
+                data.id,
+                true,
+                object: ServerUtil.JsonResponseHandler {
+                    override fun onResponse(jsonObject: JSONObject) {
+
+
+
+                    }
+
+                }
+            )
+
+        }
 
         return row
 
