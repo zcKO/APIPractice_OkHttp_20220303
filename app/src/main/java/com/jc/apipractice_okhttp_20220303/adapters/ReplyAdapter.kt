@@ -5,14 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.jc.apipractice_okhttp_20220303.R
 import com.jc.apipractice_okhttp_20220303.data.ReplyData
-import com.jc.apipractice_okhttp_20220303.data.TopicData
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ReplyAdapter(
     val mContext: Context,
@@ -40,6 +35,10 @@ class ReplyAdapter(
         txtWriterNickname.text = data.writer.nickname
         txtSelectorSide.text = "[${data.selectedSide.title}]"
 
+        val txtReReplyCount = row.findViewById<TextView>(R.id.txtReReplyCount)
+        val txtLikeCount = row.findViewById<TextView>(R.id.txtLikeCount)
+        val txtHateCount = row.findViewById<TextView>(R.id.txtHateCount)
+
         // 임시 1 - 작성 일자만 "2022-03-10" 형태로 표현 => "연 / 월 / 일" 데이터로 가공
         // 월은 1 작게 나온다. +1 로 보정
 //        txtCreatedAt.text = "${data.createdAt.get(Calendar.YEAR)}-${data.createdAt.get(Calendar.MONTH) + 1}-${data.createdAt.get(Calendar.DAY_OF_MONTH)}"
@@ -63,6 +62,11 @@ class ReplyAdapter(
 //        val sdf4 = SimpleDateFormat("yy년 m/d (E) - HH:mm")
 
         txtCreatedAt.text = data.getFormattedCreatedAt()
+
+        txtReReplyCount.text = "답글 ${data.reReplyCount}"
+        txtLikeCount.text = "좋아요 ${data.likeCount}"
+        txtHateCount.text = "싫어요 ${data.hateCount}"
+
         return row
 
     }
