@@ -1,6 +1,7 @@
 package com.jc.apipractice_okhttp_20220303
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.jc.apipractice_okhttp_20220303.data.TopicData
 import com.jc.apipractice_okhttp_20220303.databinding.ActivityEditReplyBinding
@@ -24,6 +25,20 @@ class EditReplyActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnPostReply.setOnClickListener {
+
+            // 앱에서 검사 > 입력문구가 5자 미만이면 토스트, 함수 강제종료
+            val inputContent = binding.edtReplyContent.text.toString()
+
+            if (inputContent.length < 5) {
+                Toast.makeText(mContext, "5자 이상으로 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // 입력한 내용을 > 서버 API 호춣
+
+        }
 
     }
 

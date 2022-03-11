@@ -99,6 +99,8 @@ class SignUpActivity : BaseActivity() {
 
         binding.btnSignUp.setOnClickListener {
 
+            // [도전과제] 이메일 - @가 반드시 포함되어야한다. 비밀번호 - 8자이상이어야한다. 닉네임 - 2자 이상
+            // [
             // 만약 이메일 / 닉네임 중복 감사를 통과하지 못한 상태라면,
             // 토스트로 "이메일 중복검사를 통과해야 합니다." 등의 문구만 출력
             // hint) 진행할 상황이 아니라면, return 처리하면 함수 종료.
