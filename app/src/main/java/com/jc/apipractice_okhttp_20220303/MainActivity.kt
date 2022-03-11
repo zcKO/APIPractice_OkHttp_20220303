@@ -4,7 +4,9 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import com.jc.apipractice_okhttp_20220303.adapters.TopicAdapter
 import com.jc.apipractice_okhttp_20220303.data.TopicData
@@ -68,6 +70,16 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        // 임시 테스트 > 액션바 커스텀 모드
+        val defaultActionBar = supportActionBar!!
+        defaultActionBar.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+
+        defaultActionBar.setCustomView(R.layout.my_custom_action_bar)
+
+        val toolbar = defaultActionBar.customView.parent as Toolbar
+        // 절대 값
+        toolbar.setContentInsetsAbsolute(0, 0)
 
         // 메인 화면 정보 가져오기 => API 호출 / 응답 처리
         // 코드 상으로는 먼저 실행시키지만, 비동기로 움직이기에, 완료는 어댑터 연결보다 늦을 수 도 있다.
